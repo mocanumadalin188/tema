@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript">
+
+    function fetchChuckNorrisJokeFromCategory(){
+        var apiUrl = 'https://api.chucknorris.io/jokes/random?category=' + document.getElementById('category').value;
+    fetch(apiUrl).then(response => {
+      return response.json();
+    }).then(data => {
+        var y = document.createElement("p");  // Creates a new <div> node
+        y.textContent = ("Requested a joke within the category " + document.getElementById('category').value);         // Sets the text content
+        document.body.appendChild(y); 
+      // Work with JSON data here
+      var table = document.getElementById("myTable");
+      var row = table.insertRow(0);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      var cell3 = row.insertCell(2);
+      var cell4 = row.insertCell(3);
+      cell1.innerHTML = "Categories".bold();
+      cell2.innerHTML = "Joke".bold();
+      cell3.innerHTML = "Created_at".bold();
+      cell4.innerHTML = "Updated_at".bold();
+
+
+      var row = table.insertRow(1);
+      var cell11 = row.insertCell(0);
+      var cell21 = row.insertCell(1);
+      var cell31 = row.insertCell(2);
+      var cell41 = row.insertCell(3);
+      cell11.innerHTML = data.categories;
+      cell21.innerHTML = data.value;
+      cell31.innerHTML = data.created_at;
+      cell41.innerHTML = data.updated_at;
+    }).catch(err => {
+      // Do something for an error here
+    });
+}
+</script>
+
+<script type="text/javascript">
+
+  function fetchChuckNorrisCategories(){
+      var apiUrl = 'https://api.chucknorris.io/jokes/categories';
+  fetch(apiUrl).then(response => {
+    return response.json();
+  }).then(data => {
+    var y = document.createElement("p");  // Creates a new <div> node
+    y.textContent = "Requesting all the categories of the available jokes..";         // Sets the text content
+    document.body.appendChild(y); 
+    var x = document.createElement("div");  // Creates a new <div> node
+    x.textContent = data;         // Sets the text content
+    document.body.appendChild(x); 
+    // Work with JSON data here
+  }).catch(err => {
+    // Do something for an error here
+  });
+}
+</script>
+</head>
+<body>
+
+<h1><b>Jokes db</b></h1>
+<form action="/">
+    <p><b>Joke selection based on category</b></p>
+    <label for="joke">Category:</label>
+    <input type="text" id="category" name="category"><br><br>
+    <button type="button" onclick="fetchChuckNorrisJokeFromCategory()">Amuse me with a joke</button>
+    <br><br>
+    <br><br>
+    <p><b>See all the categories</b></p>
+    <button type="button" onclick="fetchChuckNorrisCategories()">Get all the categories of the jokes</button>
+    <br><br>
+    <br><br>
+  </form>
+  <table id="myTable">
+  </table>
+
+</body>
+</html>

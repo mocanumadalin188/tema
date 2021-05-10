@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript">
+
+    function fetchPokemonDetails(){
+        var apiUrl = 'https://pokeapi.co/api/v2/pokemon/' + document.getElementById('pokemon').value + '/';
+    fetch(apiUrl).then(response => {
+      return response.json();
+    }).then(data => {
+      // Work with JSON data here
+      document.write(JSON.stringify(data));
+      console.log(data)
+    }).catch(err => {
+      // Do something for an error here
+    });
+}
+</script>
+
+<script type="text/javascript">
+
+  function fetchAllOldPokemons(){
+      var apiUrl = 'https://pokeapi.co/api/v2/pokemon?limit=151';
+  fetch(apiUrl).then(response => {
+    return response.json();
+  }).then(data => {
+    let result = data.results.map(a => a.name);
+    var joined = result.join(", \n");
+
+    var x = document.createElement("div");  // Creates a new <div> node
+    x.textContent = joined;         // Sets the text content
+    document.body.appendChild(x); 
+    // Work with JSON data here
+  }).catch(err => {
+    // Do something for an error here
+  });
+}
+</script>
+</head>
+<body>
+
+<h1><b>Pokemon database</b></h1>
+<form action="/">
+  <p><b>Select a pokemon from those listed below in order to get its details</b></p>
+    <label for="pokemon">Pokemon:</label>
+    <input type="text" id="pokemon" name="pokemon"><br><br>
+    <button type="button" onclick="fetchPokemonDetails()">Find out details of this pokemon</button>
+    <br><br>
+    <br><br>
+    <p><b>Get all the old pokemon names</b></p>
+    <button type="button" onclick="fetchAllOldPokemons()">Fetch all old pokemons</button>
+    <br><br>
+    <br><br>
+  </form>
+
+</body>
+</html>
