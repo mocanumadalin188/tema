@@ -4,7 +4,12 @@ branch-defaults:
     group_suffix: null
   main:
     environment: tema-cloud-dev
+  master:
+    environment: node-express-env
 environment-defaults:
+  node-express-env:
+    branch: master
+    repository: origin
   tema-cloud-dev:
     branch: main
     repository: origin
